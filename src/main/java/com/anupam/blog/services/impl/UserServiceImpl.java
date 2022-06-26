@@ -15,7 +15,7 @@ import com.anupam.blog.payloads.UserDto;
 import com.anupam.blog.repositories.UserRepo;
 import com.anupam.blog.services.UserService;
 
-@Service
+@Service //This annotation is added to make it a component of spring container
 public class UserServiceImpl implements UserService {
 	
 	@Autowired

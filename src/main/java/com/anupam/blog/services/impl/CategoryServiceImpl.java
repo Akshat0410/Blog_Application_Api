@@ -13,7 +13,7 @@ import com.anupam.blog.payloads.CategoryDto;
 import com.anupam.blog.repositories.CategoryRepo;
 import com.anupam.blog.services.CategoryService;
 
-@Service
+@Service //This annotation is added to make it a component of spring container
 public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired

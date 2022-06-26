@@ -16,4 +16,12 @@ public class PostsDto {
 
     private String description;
 
+    private String imageName;
+
+    private Date postedDate;
+
+    private CategoryDto category;
+
+    private UserDto user;
+
 }

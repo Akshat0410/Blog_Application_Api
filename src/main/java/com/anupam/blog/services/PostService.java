@@ -9,11 +9,11 @@ public interface PostService {
 
     //create post
 
-    Post createPost(PostsDto postDto);
+    PostsDto createPost(PostsDto postDto,Integer userId,Integer categoryId);
 
     //update post
 
-    Post updatePost(PostsDto postDto, Integer postId);
+    PostsDto updatePost(PostsDto postDto, Integer postId);
 
     //delete post
 
@@ -21,23 +21,23 @@ public interface PostService {
 
     //get all posts
 
-    Set<Post> getAllPost();
+    Set<PostsDto> getAllPost();
 
     //get single post
 
-    Post getPostById(Integer postId);
+    PostsDto getPostById(Integer postId);
 
     //get category wise posts
 
-    Set<Post> getPostByCategory(Integer categoryId);
+    Set<PostsDto> getPostByCategory(Integer categoryId);
 
     //get user wise posts
 
-    Set<Post> getPostByUser(Integer userId);
+    Set<PostsDto> getPostByUser(Integer userId);
 
     //get posts by search
 
-    Set<Post> getPostBySearch(String query);
+    Set<PostsDto> getPostBySearch(String query);
 
 
 }
