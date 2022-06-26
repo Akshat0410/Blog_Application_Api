@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service //This annotation is added to make it a component of spring container
 public class PostsServiceImpl implements PostService {
@@ -56,22 +58,37 @@ public class PostsServiceImpl implements PostService {
 
     @Override
     public Set<PostsDto> getAllPost() {
-        return null;
+        List<Post> posts= this.postsRepo.findAll();
+        Set<PostsDto> allPosts = posts.stream().map( (post -> this.modelMapper.map(post,PostsDto.class))).collect(Collectors.toSet());
+
+        return allPosts;
     }
 
     @Override
     public PostsDto getPostById(Integer postId) {
-        return null;
+        Post postById=this.postsRepo.findById(postId).orElseThrow(()-> new ResourceNotFoundException("Post","PostId",postId));
+
+        return this.modelMapper.map(postById,PostsDto.class);
     }
 
     @Override
     public Set<PostsDto> getPostByCategory(Integer categoryId) {
-        return null;
+        Category category=this.categoryRepo.findById(categoryId).orElseThrow(()-> new ResourceNotFoundException("Category","CategoryId",categoryId));
+        Set<Post> posts=this.postsRepo.findByCategory(category);
+
+        Set<PostsDto> postsByCategory = posts.stream().map( (post -> this.modelMapper.map(post,PostsDto.class))).collect(Collectors.toSet());
+
+        return postsByCategory;
     }
 
     @Override
     public Set<PostsDto> getPostByUser(Integer userId) {
-        return null;
+        User user=this.usersrepo.findById(userId).orElseThrow(()-> new ResourceNotFoundException("Users","UserId",userId));
+        Set<Post> posts=this.postsRepo.findByUser(user);
+
+        Set<PostsDto> postsByUser = posts.stream().map( (post -> this.modelMapper.map(post,PostsDto.class))).collect(Collectors.toSet());
+
+        return postsByUser;
     }
 
     @Override

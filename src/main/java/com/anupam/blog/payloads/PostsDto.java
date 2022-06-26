@@ -12,6 +12,8 @@ import java.util.Date;
 @Getter
 public class PostsDto {
 
+    private Integer postId;
+
     private String title;
 
     private String description;
