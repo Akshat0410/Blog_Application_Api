@@ -9,4 +9,4 @@ This is a basic blog application API.It contains the API's related to three enti
 
 <H2>Sample Paged Response </H2>
 
-![image](https://user-images.githubusercontent.com/56750869/176726528-1f0cfd04-d058-4872-b1f8-be874b18e0fd.png)
+![image](https://user-images.githubusercontent.com/56750869/176744391-6cee1937-8645-409a-a620-47df698c0af0.png)
