@@ -1,4 +1,4 @@
-# Blog_Application_Api
+# Blog Application Api
 
 This is a basic blog application Api.It contains the apis related to three entities like user,category of post and posts.There is relationship many to one and one to many between posts and categories respectively.It also supports pagination to get paged posts.
 
