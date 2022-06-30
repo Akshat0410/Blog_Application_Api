@@ -11,6 +11,9 @@ import com.anupam.blog.repositories.UserRepo;
 import com.anupam.blog.services.PostService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -48,17 +51,28 @@ public class PostsServiceImpl implements PostService {
 
     @Override
     public PostsDto updatePost(PostsDto postDto, Integer postId) {
-        return null;
+        Post post=this.postsRepo.findById(postId).orElseThrow(()-> new ResourceNotFoundException("Post","PostId",postId));
+        post.setTitle(postDto.getTitle());
+        post.setDescription(postDto.getDescription());
+        post.setImageName(postDto.getImageName());
+
+        Post updated=this.postsRepo.save(post);
+
+        return this.modelMapper.map(updated,PostsDto.class);
     }
 
     @Override
     public void deletePost(Integer postId) {
-
+        Post post=this.postsRepo.findById(postId).orElseThrow(()-> new ResourceNotFoundException("Post","PostId",postId));
+        this.postsRepo.delete(post);
     }
 
     @Override
-    public Set<PostsDto> getAllPost() {
-        List<Post> posts= this.postsRepo.findAll();
+    public Set<PostsDto> getAllPost(Integer pageNumber,Integer pageSize) {
+
+        Pageable p= PageRequest.of(pageNumber,pageSize);
+        Page<Post> pagedPost= this.postsRepo.findAll(p);
+        List<Post> posts=pagedPost.getContent();
         Set<PostsDto> allPosts = posts.stream().map( (post -> this.modelMapper.map(post,PostsDto.class))).collect(Collectors.toSet());
 
         return allPosts;
