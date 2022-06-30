@@ -1,6 +1,6 @@
-# Blog Application Api
+# Blog Application API
 
-This is a basic blog application Api.It contains the apis related to three entities like user,category of post and posts.There is relationship many to one and one to many between posts and categories respectively.It also supports pagination to get paged posts.
+This is a basic blog application API.It contains the API's related to three entities like user,category of post and posts and performs CRUD operations on them.There is relationship many to one and one to many between posts and categories respectively.It also supports pagination to get paged posts.
 
 # Different services offered for Blog Post
 ![image](https://user-images.githubusercontent.com/56750869/176726619-3b03f952-3bcc-4f5b-91b9-2669ef11c1b2.png)
