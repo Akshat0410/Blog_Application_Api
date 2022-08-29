@@ -2,6 +2,7 @@ package com.anupam.blog.controllers;
 
 import com.anupam.blog.entities.Post;
 import com.anupam.blog.payloads.ApiResponse;
+import com.anupam.blog.payloads.PostPagedResponse;
 import com.anupam.blog.payloads.PostsDto;
 import com.anupam.blog.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -49,10 +51,11 @@ public class PostController {
     //get all posts
 
     @GetMapping("/posts")
-    public ResponseEntity<Set<PostsDto>> getAllPosts(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
-                                                     @RequestParam(value = "pageSize",defaultValue = "3" ,required = false) Integer pageSize){
-        Set<PostsDto> posts=this.postService.getAllPost(pageNumber, pageSize);
-        return new ResponseEntity<Set<PostsDto>>(posts,HttpStatus.OK);
+    public ResponseEntity<PostPagedResponse> getAllPosts(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                                         @RequestParam(value = "pageSize",defaultValue = "3" ,required = false) Integer pageSize,
+                                                         @RequestParam(value = "sortBy",defaultValue = "postId" ,required = false) String sortBy){
+        PostPagedResponse response=this.postService.getAllPost(pageNumber, pageSize,sortBy);
+        return new ResponseEntity<PostPagedResponse>(response,HttpStatus.OK);
     }
 
     //get post by Id
@@ -77,5 +80,13 @@ public class PostController {
         PostsDto updatedPost=this.postService.updatePost(postsDto,postId);
         return new ResponseEntity<PostsDto>(updatedPost,HttpStatus.OK);
     }
+
+    //search posts
+    @GetMapping("/posts/search/{title}")
+    public ResponseEntity<List<PostsDto>> searchPosts(@PathVariable("title") String title){
+        List<PostsDto> searchedPosts=this.postService.searchPostByTitle(title);
+        return new ResponseEntity<List<PostsDto>>(searchedPosts,HttpStatus.OK);
+    }
+
 
 }
